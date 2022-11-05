@@ -1,66 +1,68 @@
+import java.util.Random;
+
 public class matrixUtilities {
 
     public int[][] classical(int A[][], int B[][]) {
         int arrayLength = A.length;
-        int newMatrix[][] = null;
-        newMatrix = new int[arrayLength][arrayLength];
+        int classicalMatrix[][] = null;
+        classicalMatrix = new int[arrayLength][arrayLength];
         int i, j, k;
         for (i = 0; i < arrayLength; i++) {
             for (j = 0; j < arrayLength; j++) {
-                newMatrix[i][j] = 0;
+                classicalMatrix[i][j] = 0;
                 for (k = 0; k < arrayLength; k++) {
-                    newMatrix[i][j] += A[i][k] * B[k][j];
+                    classicalMatrix[i][j] += A[i][k] * B[k][j];
                 }
             }
         }
 
-        return newMatrix;
+        return classicalMatrix;
     }
 
     public int[][] divideAndConquer(int A[][], int B[][]) {
         int arrayLength = A.length;
-        int newMatrix[][] = null;
+        int divideAndConquerMatrix[][] = null;
         if (arrayLength <= 1) {
-            newMatrix = classical(A, B);
+            divideAndConquerMatrix = classical(A, B);
         } else {
-            newMatrix = recursiveMultiply(A, B, 0, 0, 0, 0, arrayLength);
+            divideAndConquerMatrix = recursiveMultiply(A, B, 0, 0, 0, 0, arrayLength);
         }
 
-        return newMatrix;
+        return divideAndConquerMatrix;
     }
 
     private int[][] recursiveMultiply(int[][] A, int[][] B, int rowA, int colA, int rowB, int colB, int size) {
-        int newMatrix[][] = new int[size][size];
+        int recursiveMultiplyMatrix[][] = new int[size][size];
         if (size == 1) {
-            newMatrix[0][0] = A[rowA][colA] * B[rowB][colB];
+            recursiveMultiplyMatrix[0][0] = A[rowA][colA] * B[rowB][colB];
         } else {
             int newSize = size / 2;
-            add(newMatrix, recursiveMultiply(A, B, rowA, colA, rowB, colB, newSize),
+            add(recursiveMultiplyMatrix, recursiveMultiply(A, B, rowA, colA, rowB, colB, newSize),
                     recursiveMultiply(A, B, rowA, colA + newSize, rowB + newSize, colB, newSize),
                     0, 0);
 
-            add(newMatrix, recursiveMultiply(A, B, rowA, colA, rowB, colB + newSize, newSize),
+            add(recursiveMultiplyMatrix, recursiveMultiply(A, B, rowA, colA, rowB, colB + newSize, newSize),
                     recursiveMultiply(A, B, rowA, colA + newSize, rowB + newSize, colB + newSize, newSize),
                     0, newSize);
 
-            add(newMatrix, recursiveMultiply(A, B, rowA + newSize, colA, rowB, colB, newSize),
+            add(recursiveMultiplyMatrix, recursiveMultiply(A, B, rowA + newSize, colA, rowB, colB, newSize),
                     recursiveMultiply(A, B, rowA + newSize, colA + newSize, rowB + newSize, colB, newSize),
                     newSize, 0);
 
-            add(newMatrix, recursiveMultiply(A, B, rowA + newSize, colA, rowB, colB + newSize, newSize),
+            add(recursiveMultiplyMatrix, recursiveMultiply(A, B, rowA + newSize, colA, rowB, colB + newSize, newSize),
                     recursiveMultiply(A, B, rowA + newSize, colA + newSize, rowB + newSize, colB + newSize, newSize),
                     newSize, newSize);
         }
 
-        return newMatrix;
+        return recursiveMultiplyMatrix;
     }
 
-    private void add(int[][] newMatrix, int[][] A, int[][] B, int rowC, int colC) {
+    private void add(int[][] addedMatrix, int[][] A, int[][] B, int rowC, int colC) {
         int arrayLength = A.length;
         int i, j;
         for (i = 0; i < arrayLength; i++) {
             for (j = 0; j < arrayLength; j++) {
-                newMatrix[i + rowC][j + colC] = A[i][j] + B[i][j];
+                addedMatrix[i + rowC][j + colC] = A[i][j] + B[i][j];
             }
         }
     }
@@ -71,9 +73,9 @@ public class matrixUtilities {
         if (arrayLength < 1) {
             strassenMatrix = classical(A, B);
         } else {
-            if (arrayLength == 1)
+            if (arrayLength == 1) {
                 strassenMatrix[0][0] = A[0][0] * B[0][0];
-            else {
+            } else {
                 int[][] A11 = new int[arrayLength / 2][arrayLength / 2];
                 int[][] A12 = new int[arrayLength / 2][arrayLength / 2];
                 int[][] A21 = new int[arrayLength / 2][arrayLength / 2];
@@ -118,9 +120,11 @@ public class matrixUtilities {
     private int[][] sub(int[][] A, int[][] B) {
         int arrayLength = A.length;
         int[][] subtractedMatrix = new int[arrayLength][arrayLength];
-        for (int i = 0; i < arrayLength; i++)
-            for (int j = 0; j < arrayLength; j++)
+        for (int i = 0; i < arrayLength; i++) {
+            for (int j = 0; j < arrayLength; j++) {
                 subtractedMatrix[i][j] = A[i][j] - B[i][j];
+            }
+        }
 
         return subtractedMatrix;
     }
@@ -128,23 +132,29 @@ public class matrixUtilities {
     private int[][] strassenAdd(int[][] A, int[][] B) {
         int arrayLength = A.length;
         int[][] addedMatrix = new int[arrayLength][arrayLength];
-        for (int i = 0; i < arrayLength; i++)
-            for (int j = 0; j < arrayLength; j++)
+        for (int i = 0; i < arrayLength; i++) {
+            for (int j = 0; j < arrayLength; j++) {
                 addedMatrix[i][j] = A[i][j] + B[i][j];
+            }
+        }
 
         return addedMatrix;
     }
 
     private void split(int[][] parent, int[][] child, int iB, int jB) {
-        for (int i1 = 0, i2 = iB; i1 < child.length; i1++, i2++)
-            for (int j1 = 0, j2 = jB; j1 < child.length; j1++, j2++)
+        for (int i1 = 0, i2 = iB; i1 < child.length; i1++, i2++) {
+            for (int j1 = 0, j2 = jB; j1 < child.length; j1++, j2++) {
                 child[i1][j1] = parent[i2][j2];
+            }
+        }
     }
 
     private void join(int[][] child, int[][] parent, int iB, int jB) {
-        for (int i1 = 0, i2 = iB; i1 < child.length; i1++, i2++)
-            for (int j1 = 0, j2 = jB; j1 < child.length; j1++, j2++)
+        for (int i1 = 0, i2 = iB; i1 < child.length; i1++, i2++) {
+            for (int j1 = 0, j2 = jB; j1 < child.length; j1++, j2++) {
                 parent[i2][j2] = child[i1][j1];
+            }
+        }
     }
 
     public void printMatrix(int A[][]) {
@@ -156,6 +166,20 @@ public class matrixUtilities {
             }
             System.out.println();
         }
+    }
+
+    public int[][] generateRandomMatrix(int n) {
+        int[][] randomMatrix = new int[n][n];
+        int max = 100;
+        Random rand = new Random();
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                randomMatrix[i][j] = rand.nextInt(max);
+            }
+        }
+
+        return randomMatrix;
     }
 
 }
