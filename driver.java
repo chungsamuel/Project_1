@@ -14,15 +14,25 @@ public class driver {
         actualMatrix2[0][1] = 9;
         actualMatrix2[1][0] = 4;
         actualMatrix2[1][1] = 7;
-        int randomMatrix1[][] = generateRandomMatrix(4);
-        int randomMatrix2[][] = generateRandomMatrix(4);
+        int randomMatrix1[][] = generateRandomMatrix(256);
+        int randomMatrix2[][] = generateRandomMatrix(256);
         matrixUtilities matrix = new matrixUtilities();
-        int matrices1[][] = matrix.classical(randomMatrix1, randomMatrix2);
-        int matrices2[][] = matrix.divideAndConquer(randomMatrix1, randomMatrix2);
-        int matrices3[][] = matrix.strassen(randomMatrix1, randomMatrix2);
-        matrix.printMatrix(matrices1);
-        matrix.printMatrix(matrices2);
-        matrix.printMatrix(matrices3);
+        long startTimeClassical = System.nanoTime();
+        matrix.classical(randomMatrix1, randomMatrix2);
+        long endTimeClassical = System.nanoTime();
+        long startTimeDivideAndConquer = System.nanoTime();
+        matrix.divideAndConquer(randomMatrix1, randomMatrix2);
+        long endTimeDivideAndConquer = System.nanoTime();
+        long startTimeStrassen = System.nanoTime();
+        matrix.strassen(randomMatrix1, randomMatrix2);
+        long endTimeStrassen = System.nanoTime();
+        long classicalTime = (endTimeClassical - startTimeClassical) / 1000000;
+        long divideAndConquerTime = (endTimeDivideAndConquer - startTimeDivideAndConquer) / 1000000;
+        long strassenTime = (endTimeStrassen - startTimeStrassen) / 1000000;
+
+        System.out.println("That took " + classicalTime + " milliseconds");
+        System.out.println("That took " + divideAndConquerTime + " milliseconds");
+        System.out.println("That took " + strassenTime + " milliseconds");
     }
 
     static int[][] generateRandomMatrix(int n) {
@@ -38,4 +48,5 @@ public class driver {
 
         return randomMatrix;
     }
+
 }
