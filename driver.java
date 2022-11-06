@@ -1,6 +1,7 @@
 public class driver {
     static int globalCounter = 1;
 
+    // Declares size of the algorithms to be tested
     public static void main(String[] args) {
         testAlgorithms(1);
         testAlgorithms(2);
@@ -15,6 +16,7 @@ public class driver {
         sanityCheck();
     }
 
+    // implements a timer with the algorithms to measure duration of each test
     static void testAlgorithms(int size) {
         int sizeOfMatrix = size;
         matrixUtilities matrix = new matrixUtilities();
@@ -43,6 +45,7 @@ public class driver {
         globalCounter++;
     }
 
+    // Implements and times the given instance using our algorithms
     static void sanityCheck() {
         int actualMatrix1[][] = new int[4][4];
         int actualMatrix2[][] = new int[4][4];

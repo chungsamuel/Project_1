@@ -2,6 +2,7 @@ import java.util.Random;
 
 public class matrixUtilities {
 
+    // Implementation of Classical Matrix Multiplication
     public int[][] classical(int A[][], int B[][]) {
         int arrayLength = A.length;
         int classicalMatrix[][] = null;
@@ -19,6 +20,7 @@ public class matrixUtilities {
         return classicalMatrix;
     }
 
+    // Implementation of Naive divide-and-conquer matrix multiplication
     public int[][] divideAndConquer(int A[][], int B[][]) {
         int arrayLength = A.length;
         int divideAndConquerMatrix[][] = null;
@@ -31,6 +33,7 @@ public class matrixUtilities {
         return divideAndConquerMatrix;
     }
 
+    // Divide the matrix in 2 recursively
     private int[][] recursiveMultiply(int[][] A, int[][] B, int rowA, int colA, int rowB, int colB, int size) {
         int recursiveMultiplyMatrix[][] = new int[size][size];
         if (size == 1) {
@@ -57,6 +60,7 @@ public class matrixUtilities {
         return recursiveMultiplyMatrix;
     }
 
+    // Adds the matrix
     private void add(int[][] addedMatrix, int[][] A, int[][] B, int rowC, int colC) {
         int arrayLength = A.length;
         int i, j;
@@ -67,6 +71,7 @@ public class matrixUtilities {
         }
     }
 
+    // Implementation of Strassen’s matrix multiplication
     public int[][] strassen(int[][] A, int[][] B) {
         int arrayLength = A.length;
         int[][] strassenMatrix = new int[arrayLength][arrayLength];
@@ -117,6 +122,7 @@ public class matrixUtilities {
         return strassenMatrix;
     }
 
+    // Subtracts Matrices
     private int[][] sub(int[][] A, int[][] B) {
         int arrayLength = A.length;
         int[][] subtractedMatrix = new int[arrayLength][arrayLength];
@@ -129,6 +135,7 @@ public class matrixUtilities {
         return subtractedMatrix;
     }
 
+    // Adds Matrices
     private int[][] strassenAdd(int[][] A, int[][] B) {
         int arrayLength = A.length;
         int[][] addedMatrix = new int[arrayLength][arrayLength];
@@ -141,6 +148,7 @@ public class matrixUtilities {
         return addedMatrix;
     }
 
+    // Splits the values of arrays
     private void split(int[][] parent, int[][] child, int iB, int jB) {
         for (int i1 = 0, i2 = iB; i1 < child.length; i1++, i2++) {
             for (int j1 = 0, j2 = jB; j1 < child.length; j1++, j2++) {
@@ -149,6 +157,7 @@ public class matrixUtilities {
         }
     }
 
+    // Joins the values of arrays with matrices
     private void join(int[][] child, int[][] parent, int iB, int jB) {
         for (int i1 = 0, i2 = iB; i1 < child.length; i1++, i2++) {
             for (int j1 = 0, j2 = jB; j1 < child.length; j1++, j2++) {
@@ -157,6 +166,7 @@ public class matrixUtilities {
         }
     }
 
+    // Prints matrix after reading the array
     public void printMatrix(int A[][]) {
         int arrayLength = A.length;
         int i, j;
@@ -168,6 +178,7 @@ public class matrixUtilities {
         }
     }
 
+    // Generate random matrix by filling matrix with random numbers
     public int[][] generateRandomMatrix(int n) {
         int[][] randomMatrix = new int[n][n];
         int max = 100;
