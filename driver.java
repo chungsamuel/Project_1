@@ -31,14 +31,14 @@ public class driver {
         matrix.strassen(randomMatrix1, randomMatrix2);
         long endTimeStrassen = System.nanoTime();
 
-        long classicalTime = (endTimeClassical - startTimeClassical);
-        long divideAndConquerTime = (endTimeDivideAndConquer - startTimeDivideAndConquer);
-        long strassenTime = (endTimeStrassen - startTimeStrassen);
+        long classicalTime = (endTimeClassical - startTimeClassical) / 1000000;
+        long divideAndConquerTime = (endTimeDivideAndConquer - startTimeDivideAndConquer) / 1000000;
+        long strassenTime = (endTimeStrassen - startTimeStrassen) / 1000000;
 
         System.out.println("Test #" + globalCounter + " Size: " + sizeOfMatrix);
-        System.out.println("The classical algorithm took " + classicalTime + " nanoseconds");
-        System.out.println("The divide and conquer algorithm took " + divideAndConquerTime + " nanoseconds");
-        System.out.println("The strassen algorithm took " + strassenTime + " nanoseconds\n");
+        System.out.println("The classical algorithm took " + classicalTime + " milliseconds");
+        System.out.println("The divide and conquer algorithm took " + divideAndConquerTime + " milliseconds");
+        System.out.println("The strassen algorithm took " + strassenTime + " milliseconds\n");
 
         globalCounter++;
     }
