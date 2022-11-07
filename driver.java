@@ -13,6 +13,7 @@ public class driver {
         testAlgorithms(128);
         testAlgorithms(256);
         testAlgorithms(512);
+        testAlgorithms(113);
         sanityCheck();
     }
 
@@ -22,6 +23,13 @@ public class driver {
         matrixUtilities matrix = new matrixUtilities();
         int randomMatrix1[][] = matrix.generateRandomMatrix(sizeOfMatrix);
         int randomMatrix2[][] = matrix.generateRandomMatrix(sizeOfMatrix);
+
+        powerOfTwoChecker(sizeOfMatrix);
+        if (!powerOfTwoChecker(sizeOfMatrix)) {
+            randomMatrix1 = powerOfTwoAdjuster(randomMatrix1);
+            randomMatrix2 = powerOfTwoAdjuster(randomMatrix2);
+
+        }
 
         long startTimeClassical = System.nanoTime();
         matrix.classical(randomMatrix1, randomMatrix2);
@@ -132,6 +140,36 @@ public class driver {
             }
             System.out.println();
         }
+    }
+
+    public static boolean powerOfTwoChecker(int n) {
+        return (int) (Math.ceil((Math.log(n) / Math.log(2)))) == (int) (Math.floor(((Math.log(n) / Math.log(2)))));
+    }
+
+    public static int[][] powerOfTwoAdjuster(int[][] N) {
+
+        int newSize = 1;
+        while (true) {
+
+            if ((newSize) < N.length || (newSize) < N[0].length)
+                newSize++;
+            else
+                break;
+        }
+
+        int[][] newMatrix = new int[newSize][newSize];
+
+        for (int i = 0; i < newSize; i++) {
+            for (int j = 0; j < newSize; j++)
+                newMatrix[i][j] = 0;
+        }
+
+        for (int i = 0; i < N.length; i++) {
+            for (int j = 0; j < (N[0].length); j++)
+                newMatrix[i][j] = N[i][j];
+        }
+
+        return newMatrix;
     }
 
 }
