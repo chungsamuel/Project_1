@@ -99,13 +99,13 @@ public class driver {
 
         matrixUtilities matrix = new matrixUtilities();
         long startTimeClassical = System.nanoTime();
-        matrix.classical(actualMatrix1, actualMatrix2);
+        int[][] classicalMatrix = matrix.classical(actualMatrix1, actualMatrix2);
         long endTimeClassical = System.nanoTime();
         long startTimeDivideAndConquer = System.nanoTime();
-        matrix.divideAndConquer(actualMatrix1, actualMatrix2);
+        int[][] dNcMatrix = matrix.divideAndConquer(actualMatrix1, actualMatrix2);
         long endTimeDivideAndConquer = System.nanoTime();
         long startTimeStrassen = System.nanoTime();
-        matrix.strassen(actualMatrix1, actualMatrix2);
+        int[][] strassenMatrix = matrix.strassen(actualMatrix1, actualMatrix2);
         long endTimeStrassen = System.nanoTime();
 
         long classicalTime = (endTimeClassical - startTimeClassical);
@@ -114,9 +114,24 @@ public class driver {
 
         System.out.println("Test: Sanity Check Size: 4");
         System.out.println("The classical algorithm took " + classicalTime + " nanoseconds");
-        System.out.println("The divide and conquer algorithm took " + divideAndConquerTime + " nanoseconds");
-        System.out.println("The strassen algorithm took " + strassenTime + " nanoseconds\n");
+        printSanity(classicalMatrix);
+        System.out.println("\nThe divide and conquer algorithm took " + divideAndConquerTime + " nanoseconds");
+        printSanity(dNcMatrix);
+        System.out.println("\nThe strassen algorithm took " + strassenTime + " nanoseconds");
+        printSanity(strassenMatrix);
 
+    }
+
+    // Prints the matrices
+    public static void printSanity(int A[][]) {
+        int arrayLength = A.length;
+        int i, j;
+        for (i = 0; i < arrayLength; i++) {
+            for (j = 0; j < arrayLength; j++) {
+                System.out.print(A[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
 }
